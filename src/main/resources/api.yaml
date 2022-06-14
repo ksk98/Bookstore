@@ -50,6 +50,9 @@ paths:
         - name: book_id
           in: path
           required: true
+          schema:
+            type: integer
+            example: 1
       responses:
         200:
           description: Book resource.
@@ -66,6 +69,9 @@ paths:
         - name: book_id
           in: path
           required: true
+          schema:
+            type: integer
+            example: 1
       requestBody:
         content:
           application/json:
@@ -91,6 +97,9 @@ paths:
         - name: book_id
           in: path
           required: true
+          schema:
+            type: integer
+            example: 1
       responses:
         204:
           description: Book deleted.
@@ -109,6 +118,9 @@ paths:
         - name: user_id
           in: path
           required: true
+          schema:
+            type: integer
+            example: 1
       responses:
         200:
           description: Users cart contents.
@@ -125,6 +137,13 @@ paths:
     delete:
       description: Clear the cart.
       operationId: clearCartContentById
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
       responses:
         204:
           description: Cart cleared.
@@ -142,9 +161,15 @@ paths:
         - name: user_id
           in: path
           required: true
+          schema:
+            type: integer
+            example: 1
         - name: item_id
           in: path
           required: true
+          schema:
+            type: integer
+            example: 1
       responses:
         204:
           description: Item added to cart.
@@ -161,9 +186,15 @@ paths:
         - name: user_id
           in: path
           required: true
+          schema:
+            type: integer
+            example: 1
         - name: item_id
           in: path
           required: true
+          schema:
+            type: integer
+            example: 1
       responses:
         204:
           description: Item removed from cart.
@@ -182,6 +213,9 @@ paths:
         - name: user_id
           in: path
           required: true
+          schema:
+            type: integer
+            example: 1
       responses:
         200:
           description: Order placed.
@@ -203,6 +237,9 @@ paths:
         - name: order_id
           in: path
           required: true
+          schema:
+            type: integer
+            example: 1
       requestBody:
         content:
           application/json:
@@ -228,6 +265,9 @@ paths:
         - name: order_id
           in: path
           required: true
+          schema:
+            type: integer
+            example: 1
       requestBody:
         content:
           application/json:
@@ -253,6 +293,9 @@ paths:
         - name: order_id
           in: path
           required: true
+          schema:
+            type: integer
+            example: 1
       requestBody:
         content:
           application/json:
@@ -299,6 +342,9 @@ paths:
         - name: user_id
           in: path
           required: true
+          schema:
+            type: integer
+            example: 1
       responses:
         200:
           description: User data.
@@ -319,6 +365,9 @@ paths:
         - name: user_id
           in: path
           required: true
+          schema:
+            type: integer
+            example: 1
       requestBody:
         content:
           application/json:
@@ -344,6 +393,9 @@ paths:
         - name: user_id
           in: path
           required: true
+          schema:
+            type: integer
+            example: 1
       responses:
         204:
           description: User succesfully deleted.
@@ -362,15 +414,16 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - username
+                - password
               properties:
                 username:
                   type: string
                   example: user
-                  required: true
                 password:
                   type: string
                   example: password
-                  required: true
       responses:
         200:
           description: User succesfully logged in.
