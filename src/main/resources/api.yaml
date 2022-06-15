@@ -519,4 +519,3 @@ components:
         maximum: 50
         default: 20
       description: The numbers of items to return.
-
