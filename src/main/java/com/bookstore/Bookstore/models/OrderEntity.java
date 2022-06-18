@@ -11,10 +11,15 @@ public class OrderEntity {
     @Column(name = "id", nullable = false, updatable = false)
     private Integer id;
 
-    @OneToOne(mappedBy = "user", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
     private UserEntity recipient;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "order_relations",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
     private List<BookEntity> content;
 
     public OrderEntity() {

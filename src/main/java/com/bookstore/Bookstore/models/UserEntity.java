@@ -20,19 +20,27 @@ public class UserEntity {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @JoinTable(
+            name = "user_cart",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
     private List<BookEntity> cart;
 
-    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinTable(
-            name = "users_roles",
+            name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<RoleEntity> roles;
 
+    @OneToMany(mappedBy = "recipient", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    private List<OrderEntity> orders;
+
     public UserEntity() {
         cart = new LinkedList<>();
         roles = new LinkedList<>();
+        orders = new LinkedList<>();
     }
 
     public Integer getId() {
@@ -69,5 +77,9 @@ public class UserEntity {
 
     public List<RoleEntity> getRoles() {
         return roles;
+    }
+
+    public List<OrderEntity> getOrders() {
+        return orders;
     }
 }
