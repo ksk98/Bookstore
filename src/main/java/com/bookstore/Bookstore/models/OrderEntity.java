@@ -15,6 +15,12 @@ public class OrderEntity {
     @JoinColumn(name = "user_id")
     private UserEntity recipient;
 
+    @Column(name = "is_paid")
+    private Boolean isPaid;
+
+    @Column(name = "is_sent")
+    private Boolean isSent;
+
     @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     @JoinTable(
             name = "order_relations",
@@ -36,6 +42,22 @@ public class OrderEntity {
 
     public void setRecipient(UserEntity recipient) {
         this.recipient = recipient;
+    }
+
+    public Boolean getPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(Boolean paid) {
+        isPaid = paid;
+    }
+
+    public Boolean getSent() {
+        return isSent;
+    }
+
+    public void setSent(Boolean sent) {
+        isSent = sent;
     }
 
     public List<BookEntity> getContent() {
