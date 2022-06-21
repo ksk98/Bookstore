@@ -3,13 +3,11 @@ package com.bookstore.Bookstore.services;
 import com.bookstore.Bookstore.converters.BookConverter;
 import com.bookstore.Bookstore.models.BookEntity;
 import com.bookstore.Bookstore.repositories.BookRepository;
-import org.springdoc.api.OpenApiResourceNotFoundException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import com.bookstore.Bookstore.model.Book;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,11 +28,9 @@ public class BookService extends BaseService {
     }
 
     public Book getBook(Integer id) {
-        Optional<BookEntity> entity = bookRepository.findById(id);
-        if (entity.isEmpty())
-            throw new OpenApiResourceNotFoundException("No book of id " + id + " exists.");
+        BookEntity target = getBookEntityOrThrowNotFound(id, bookRepository);
 
-        return bookConverter.toDTO(entity.get());
+        return bookConverter.toDTO(target);
     }
 
     public List<Book> getBooks() {
@@ -46,11 +42,8 @@ public class BookService extends BaseService {
     }
 
     public Book updateBook(Book book) {
-        Optional<BookEntity> entityQuery = bookRepository.findById(book.getId());
-        if (entityQuery.isEmpty())
-            throw new OpenApiResourceNotFoundException("No book of id " + book.getId() + " exists.");
+        BookEntity entity = getBookEntityOrThrowNotFound(book.getId(), bookRepository);
 
-        BookEntity entity = entityQuery.get();
         entity.setTitle(book.getTitle());
         entity.setAuthor(book.getAuthor());
         entity.setPublisher(book.getPublisher());
@@ -59,9 +52,7 @@ public class BookService extends BaseService {
     }
 
     public void deleteBook(Integer id) {
-        Optional<BookEntity> entityQuery = bookRepository.findById(id);
-        if (entityQuery.isEmpty())
-            throw new OpenApiResourceNotFoundException("No book of id " + id + " exists.");
+        getBookEntityOrThrowNotFound(id, bookRepository);
 
         bookRepository.deleteById(id);
     }
