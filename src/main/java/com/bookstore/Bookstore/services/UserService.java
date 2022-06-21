@@ -25,6 +25,8 @@ public class UserService extends BaseService {
         entity.setPassword(user.getPassword());
         entity.setEmail(user.getEmail());
 
+        verifyUniqueFieldsForUser(entity, userRepository);
+
         return userConverter.toDTO(userRepository.save(entity));
     }
 
@@ -40,6 +42,8 @@ public class UserService extends BaseService {
         target.setUsername(user.getUsername());
         target.setPassword(user.getPassword());
         target.setEmail(user.getEmail());
+
+        verifyUniqueFieldsForUser(target, userRepository);
 
         return userConverter.toDTO(userRepository.save(target));
     }
