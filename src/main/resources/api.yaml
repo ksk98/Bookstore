@@ -466,11 +466,12 @@ components:
         is_paid:
           type: boolean
           example: false
-          readOnly: true
         is_sent:
           type: boolean
           example: false
-          readOnly: true
+        is_complete:
+          type: boolean
+          example: false
         items:
           type: array
           items:
