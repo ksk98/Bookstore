@@ -32,6 +32,7 @@ public class OrderConverter {
         out.setUserId(entity.getRecipient().getId());
         out.setIsPaid(entity.getPaid());
         out.setIsSent(entity.getSent());
+        out.setIsComplete(entity.getComplete());
 
         List<Book> content = new LinkedList<>();
         entity.getContent().stream().iterator().forEachRemaining(book -> content.add(bookConverter.toDTO(book)));
@@ -46,6 +47,7 @@ public class OrderConverter {
         out.setRecipient(userRepository.findById(dto.getUserId()).orElse(null));
         out.setPaid(dto.getIsPaid());
         out.setSent(dto.getIsSent());
+        out.setComplete(dto.getIsComplete());
 
         return out;
     }
