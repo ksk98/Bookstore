@@ -1,11 +1,11 @@
 package com.bookstore.Bookstore.services;
 
 import com.bookstore.Bookstore.converters.BookConverter;
+import com.bookstore.Bookstore.exceptions.ResourceNotFoundException;
 import com.bookstore.Bookstore.models.BookEntity;
 import com.bookstore.Bookstore.models.UserEntity;
 import com.bookstore.Bookstore.repositories.BookRepository;
 import com.bookstore.Bookstore.repositories.UserRepository;
-import org.springdoc.api.OpenApiResourceNotFoundException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import com.bookstore.Bookstore.model.Book;
@@ -54,7 +54,7 @@ public class CartService extends BaseService {
         BookEntity item = getBookEntityOrThrowNotFound(bookId, bookRepository);
 
         if (!target.getCart().contains(item))
-            throw new OpenApiResourceNotFoundException(
+            throw new ResourceNotFoundException(
                     "Cart for user of id " + userId + " doesn't contain book of id " + bookId);
 
         target.getCart().remove(item);
