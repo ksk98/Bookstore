@@ -21,6 +21,9 @@ public class OrderEntity {
     @Column(name = "is_sent")
     private Boolean isSent;
 
+    @Column(name = "is_complete")
+    private Boolean isComplete;
+
     @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     @JoinTable(
             name = "order_relations",
@@ -30,6 +33,8 @@ public class OrderEntity {
 
     public OrderEntity() {
         content = new LinkedList<>();
+        isPaid = false;
+        isSent = false;
     }
 
     public Integer getId() {
@@ -58,6 +63,14 @@ public class OrderEntity {
 
     public void setSent(Boolean sent) {
         isSent = sent;
+    }
+
+    public Boolean getComplete() {
+        return isComplete;
+    }
+
+    public void setComplete(Boolean complete) {
+        isComplete = complete;
     }
 
     public List<BookEntity> getContent() {
