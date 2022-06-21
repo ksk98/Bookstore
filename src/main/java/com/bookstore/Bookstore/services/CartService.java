@@ -11,12 +11,11 @@ import org.springframework.stereotype.Service;
 import com.bookstore.Bookstore.model.Book;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 @Scope("singleton")
-public class CartService {
+public class CartService extends BaseService {
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
     private final BookConverter bookConverter;
@@ -28,21 +27,21 @@ public class CartService {
     }
 
     public List<Book> getCart(Integer userId) {
-        UserEntity target = getUserEntityOrThrowNotFound(userId);
+        UserEntity target = getUserEntityOrThrowNotFound(userId, userRepository);
 
         return target.getCart().stream().map(bookConverter::toDTO).collect(Collectors.toList());
     }
 
     public void clearCart(Integer userId) {
-        UserEntity target = getUserEntityOrThrowNotFound(userId);
+        UserEntity target = getUserEntityOrThrowNotFound(userId, userRepository);
 
         target.getCart().clear();
         userRepository.save(target);
     }
 
     public List<Book> addItemToCart(Integer bookId, Integer userId) {
-        UserEntity target = getUserEntityOrThrowNotFound(userId);
-        BookEntity item = getBookEntityOrThrowNotFound(bookId);
+        UserEntity target = getUserEntityOrThrowNotFound(userId, userRepository);
+        BookEntity item = getBookEntityOrThrowNotFound(bookId, bookRepository);
 
         target.getCart().add(item);
         target = userRepository.save(target);
@@ -51,8 +50,8 @@ public class CartService {
     }
 
     public List<Book> removeItemFromCart(Integer bookId, Integer userId) {
-        UserEntity target = getUserEntityOrThrowNotFound(userId);
-        BookEntity item = getBookEntityOrThrowNotFound(bookId);
+        UserEntity target = getUserEntityOrThrowNotFound(userId, userRepository);
+        BookEntity item = getBookEntityOrThrowNotFound(bookId, bookRepository);
 
         if (!target.getCart().contains(item))
             throw new OpenApiResourceNotFoundException(
@@ -65,21 +64,5 @@ public class CartService {
                 .stream()
                 .map(bookConverter::toDTO)
                 .collect(Collectors.toList());
-    }
-
-    private UserEntity getUserEntityOrThrowNotFound(Integer userId) {
-        Optional<UserEntity> targetQuery = userRepository.findById(userId);
-        if (targetQuery.isEmpty())
-            throw new OpenApiResourceNotFoundException("No user of id " + userId + " exists.");
-
-        return targetQuery.get();
-    }
-
-    private BookEntity getBookEntityOrThrowNotFound(Integer bookId) {
-        Optional<BookEntity> targetQuery = bookRepository.findById(bookId);
-        if (targetQuery.isEmpty())
-            throw new OpenApiResourceNotFoundException("No book of id " + bookId + " exists.");
-
-        return targetQuery.get();
     }
 }

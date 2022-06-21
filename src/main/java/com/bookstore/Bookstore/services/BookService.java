@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Scope("singleton")
-public class BookService {
+public class BookService extends BaseService {
     private final BookRepository bookRepository;
     private final BookConverter bookConverter;
 
