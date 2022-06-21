@@ -9,9 +9,6 @@ paths:
     post:
       description: Add a book.
       operationId: createBook
-      parameters:
-        - $ref: "#/components/parameters/param_offset"
-        - $ref: "#/components/parameters/param_limit"
       requestBody:
         content:
           application/json:
