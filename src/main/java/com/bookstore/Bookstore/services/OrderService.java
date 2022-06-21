@@ -23,16 +23,16 @@ public class OrderService extends BaseService {
     }
 
     public Order createOrderFromCartById(Integer userId) {
-        OrderEntity outEntity = new OrderEntity();
+        OrderEntity entity = new OrderEntity();
         UserEntity target = getUserEntityOrThrowNotFound(userId, userRepository);
 
-        outEntity.setRecipient(target);
-        outEntity.getContent().addAll(target.getCart());
+        entity.setRecipient(target);
+        entity.getContent().addAll(target.getCart());
 
         target.getCart().clear();
         userRepository.save(target);
 
-        return orderConverter.toDTO(orderRepository.save(outEntity));
+        return orderConverter.toDTO(orderRepository.save(entity));
     }
 
     public Order setSent(Integer orderId, boolean status) {
