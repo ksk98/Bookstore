@@ -241,10 +241,7 @@ paths:
         content:
           application/json:
             schema:
-              type: string
-              enum:
-                - AWAITING PAYMENT
-                - PAID
+              type: boolean
       responses:
         204:
           description: Order paid.
@@ -269,10 +266,7 @@ paths:
         content:
           application/json:
             schema:
-              type: string
-              enum:
-                - IN PROGRESS
-                - SENT
+              type: boolean
       responses:
         204:
           description: Order sent.
@@ -297,10 +291,7 @@ paths:
         content:
           application/json:
             schema:
-              type: string
-              enum:
-                - IN PROGRESS
-                - COMPLETED
+              type: boolean
       responses:
         204:
           description: Order completed.
