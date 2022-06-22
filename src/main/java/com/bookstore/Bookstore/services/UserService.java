@@ -36,8 +36,8 @@ public class UserService extends BaseService {
         return userConverter.toDTO(target);
     }
 
-    public User updateUser(User user) {
-        UserEntity target = getUserEntityOrThrowNotFound(user.getId(), userRepository);
+    public User updateUser(Integer userId, User user) {
+        UserEntity target = getUserEntityOrThrowNotFound(userId, userRepository);
 
         target.setUsername(user.getUsername());
         target.setPassword(user.getPassword());
