@@ -41,8 +41,8 @@ public class BookService extends BaseService {
                 .collect(Collectors.toList());
     }
 
-    public Book updateBook(Book book) {
-        BookEntity entity = getBookEntityOrThrowNotFound(book.getId(), bookRepository);
+    public Book updateBook(Integer bookId, Book book) {
+        BookEntity entity = getBookEntityOrThrowNotFound(bookId, bookRepository);
 
         entity.setTitle(book.getTitle());
         entity.setAuthor(book.getAuthor());
