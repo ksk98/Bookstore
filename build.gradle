@@ -21,13 +21,19 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
 	implementation 'org.webjars:swagger-ui:4.11.1'
 	implementation 'com.h2database:h2:2.1.212'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.testng:testng:7.1.0'
+	implementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.slf4j:slf4j-simple:1.7.36'
 }
 
 configurations {
 	all*.exclude module : 'spring-boot-starter-logging'
 	all*.exclude module : 'logback-classic'
+}
+
+springBoot {
+	mainClass = 'com.bookstore.Bookstore.BookstoreApplication'
 }
 
 openApiGenerate {
@@ -38,7 +44,8 @@ openApiGenerate {
 	invokerPackage = "com.bookstore.Bookstore.invoker"
 	modelPackage = "com.bookstore.Bookstore.model"
 	configOptions = [
-			dateLibrary: "java8"
+			dateLibrary: "java8",
+			"openApiNullable": "false"
 	]
 }
 
