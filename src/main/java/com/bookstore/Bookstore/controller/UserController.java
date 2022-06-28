@@ -41,8 +41,20 @@ public class UserController implements UsersApi {
         return new ResponseEntity<>(userService.getUser(userId), HttpStatus.ACCEPTED);
     }
 
-//    @Override
-//    public ResponseEntity<Void> loginUser(LoginUserRequest loginUserRequest) {
-//        return UsersApi.super.loginUser(loginUserRequest);
-//    }
+    @Override
+    public ResponseEntity<String> loginUser(LoginUserRequest loginUserRequest) {
+        try{
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            loginUserRequest.getUsername(),
+                            loginUserRequest.getPassword())
+            );
+        } catch (BadCredentialsException e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(loginUserRequest.getUsername());
+        final String jwtToken = tokenManager.generateJwtToken(userDetails);
+        return new ResponseEntity<>(jwtToken, HttpStatus.ACCEPTED);
+    }
 }
