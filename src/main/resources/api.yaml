@@ -415,6 +415,11 @@ paths:
       responses:
         200:
           description: User succesfully logged in.
+          content:
+            application/json:
+              schema:
+                type: string
+                description: JWT token.
         400:
           description: Bad request.
         403:
@@ -487,8 +492,6 @@ components:
         email:
           type: string
           example: user@site.com
-        cart:
-          $ref: "#/components/schemas/Cart"
   parameters:
     param_offset:
       in: query
