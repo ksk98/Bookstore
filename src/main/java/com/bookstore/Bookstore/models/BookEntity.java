@@ -19,7 +19,7 @@ public class BookEntity {
     private String publisher;
 
     public BookEntity() {
-
+        id = null;
     }
 
     public Integer getId() {

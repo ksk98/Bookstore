@@ -1,9 +1,12 @@
 package com.bookstore.Bookstore.services;
 
 import com.bookstore.Bookstore.converters.UserConverter;
+import com.bookstore.Bookstore.models.RoleEntity;
 import com.bookstore.Bookstore.models.UserEntity;
+import com.bookstore.Bookstore.repositories.RoleRepository;
 import com.bookstore.Bookstore.repositories.UserRepository;
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.bookstore.Bookstore.model.User;
 
@@ -12,18 +15,23 @@ import com.bookstore.Bookstore.model.User;
 public class UserService extends BaseService {
     private final UserRepository userRepository;
     private final UserConverter userConverter;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, UserConverter userConverter) {
+    public UserService(UserRepository userRepository, UserConverter userConverter, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.userConverter = userConverter;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User createUser(User user) {
         UserEntity entity = new UserEntity();
 
         entity.setUsername(user.getUsername());
-        entity.setPassword(user.getPassword());
+        entity.setPassword(passwordEncoder.encode(user.getPassword()));
         entity.setEmail(user.getEmail());
+        entity.getRoles().add(roleRepository.getRoleByName(RoleEntity.ROLE_USER));
 
         verifyUniqueFieldsForUser(entity, userRepository);
 
@@ -40,7 +48,7 @@ public class UserService extends BaseService {
         UserEntity target = getUserEntityOrThrowNotFound(userId, userRepository);
 
         target.setUsername(user.getUsername());
-        target.setPassword(user.getPassword());
+        target.setPassword(passwordEncoder.encode(user.getPassword()));
         target.setEmail(user.getEmail());
 
         verifyUniqueFieldsForUser(target, userRepository);

@@ -32,6 +32,7 @@ public class OrderEntity {
     private List<BookEntity> content;
 
     public OrderEntity() {
+        id = null;
         content = new LinkedList<>();
         isPaid = false;
         isSent = false;

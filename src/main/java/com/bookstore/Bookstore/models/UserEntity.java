@@ -1,6 +1,13 @@
 package com.bookstore.Bookstore.models;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -38,6 +45,7 @@ public class UserEntity {
     private List<OrderEntity> orders;
 
     public UserEntity() {
+        id = null;
         cart = new LinkedList<>();
         roles = new LinkedList<>();
         orders = new LinkedList<>();
@@ -81,5 +89,14 @@ public class UserEntity {
 
     public List<OrderEntity> getOrders() {
         return orders;
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        for (RoleEntity role: roles)
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+
+        return authorities;
     }
 }

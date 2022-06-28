@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity(name = "Roles")
 public class RoleEntity {
-    private static final String
+    public static final String
             ROLE_USER = "ROLE_USER",
             ROLE_ADMIN = "ROLE_ADMIN";
 
@@ -17,7 +17,7 @@ public class RoleEntity {
     private String name;
 
     public RoleEntity() {
-
+        id = null;
     }
 
     public Integer getId() {

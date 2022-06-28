@@ -4,10 +4,6 @@ import com.bookstore.Bookstore.models.UserEntity;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import com.bookstore.Bookstore.model.User;
-import com.bookstore.Bookstore.model.Book;
-
-import java.util.LinkedList;
-import java.util.List;
 
 @Service
 @Scope("singleton")
@@ -25,10 +21,6 @@ public class UserConverter {
         out.setUsername(entity.getUsername());
         out.setPassword(entity.getPassword());
         out.setEmail(entity.getEmail());
-
-        List<Book> cart = new LinkedList<>();
-        entity.getCart().iterator().forEachRemaining(book -> cart.add(bookConverter.toDTO(book)));
-        out.setCart(cart);
 
         return out;
     }
