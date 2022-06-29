@@ -38,11 +38,11 @@ public abstract class BaseService {
 
     protected void verifyUniqueFieldsForUser(UserEntity target, UserRepository userRepository) {
         UserEntity nameCheck = userRepository.findByUsername(target.getUsername());
-        if (nameCheck != null)
+        if (nameCheck != null && !nameCheck.getId().equals(target.getId()))
             throw new ConflictException("Username " + target.getUsername() + " already taken.");
 
         UserEntity emailCheck = userRepository.findByEmail(target.getEmail());
-        if (emailCheck != null)
+        if (emailCheck != null && !emailCheck.getId().equals(target.getId()))
             throw new ConflictException("Email " + target.getEmail() + " already taken.");
     }
 }
