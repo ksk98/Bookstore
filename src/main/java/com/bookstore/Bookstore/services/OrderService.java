@@ -1,6 +1,7 @@
 package com.bookstore.Bookstore.services;
 
 import com.bookstore.Bookstore.converters.OrderConverter;
+import com.bookstore.Bookstore.exceptions.ConflictException;
 import com.bookstore.Bookstore.models.OrderEntity;
 import com.bookstore.Bookstore.models.UserEntity;
 import com.bookstore.Bookstore.repositories.OrderRepository;
@@ -25,6 +26,9 @@ public class OrderService extends BaseService {
     public Order createOrderFromCartById(Integer userId) {
         OrderEntity entity = new OrderEntity();
         UserEntity target = getUserEntityOrThrowNotFound(userId, userRepository);
+
+        if (target.getCart().isEmpty())
+            throw new ConflictException("Cannot place an order if the cart is empty!");
 
         entity.setRecipient(target);
         entity.getContent().addAll(target.getCart());
@@ -54,7 +58,7 @@ public class OrderService extends BaseService {
     public Order setComplete(Integer orderId, boolean status) {
         OrderEntity target = getOrderEntityOrThrowNotFound(orderId, orderRepository);
 
-        target.setPaid(status);
+        target.setComplete(status);
 
         return orderConverter.toDTO(orderRepository.save(target));
     }

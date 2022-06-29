@@ -36,6 +36,7 @@ public class OrderEntity {
         content = new LinkedList<>();
         isPaid = false;
         isSent = false;
+        isComplete = false;
     }
 
     public Integer getId() {

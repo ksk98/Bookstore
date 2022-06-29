@@ -27,7 +27,7 @@ public class UserEntity {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @ManyToMany
     @JoinTable(
             name = "user_cart",
             joinColumns = @JoinColumn(name = "user_id"),

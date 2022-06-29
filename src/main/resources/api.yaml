@@ -176,6 +176,8 @@ paths:
           description: User not logged in.
         403:
           description: User not authorized.
+        404:
+          description: Item not found.
     delete:
       description: Remove item from cart.
       operationId: removeItemFromCartById
@@ -201,6 +203,8 @@ paths:
           description: User not logged in.
         403:
           description: User not authorized.
+        404:
+          description: Item not present in cart.
   # Order, order states
   /orders/{user_id}:
     post:
@@ -214,7 +218,7 @@ paths:
             type: integer
             example: 1
       responses:
-        200:
+        201:
           description: Order placed.
           content:
             application/json:
@@ -226,6 +230,8 @@ paths:
           description: User not logged in.
         403:
           description: User not authorized.
+        409:
+          description: Cannot place order from an empty cart.
   /orders/{order_id}/paid:
     put:
       description: Change payment status for order.

@@ -30,7 +30,7 @@ public class CartController extends BaseController implements CartsApi {
     public ResponseEntity<Void> addItemToCartById(Integer userId, Integer itemId) {
         verifyUserForAdminOrOwnerOrThrowUnauthorized(userId, userRepository);
 
-        cartService.addItemToCart(userId, itemId);
+        cartService.addItemToCart(itemId, userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -56,7 +56,7 @@ public class CartController extends BaseController implements CartsApi {
     public ResponseEntity<Void> removeItemFromCartById(Integer userId, Integer itemId) {
         verifyUserForAdminOrOwnerOrThrowUnauthorized(userId, userRepository);
 
-        cartService.removeItemFromCart(userId, itemId);
+        cartService.removeItemFromCart(itemId, userId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
