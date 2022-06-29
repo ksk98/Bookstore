@@ -31,6 +31,7 @@ public class BookController extends BaseController implements BooksApi {
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteBookById(Integer bookId) {
+        bookService.deleteBook(bookId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
