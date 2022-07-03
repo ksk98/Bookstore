@@ -3,11 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Bookstore</title>
+    <link th:href="@{/css/custom.css}" rel="stylesheet">
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
 
-<div th:insert="navbar :: navbar">  </div>
+<div th:insert="navbar :: navbar"> </div>
+
+<div class="bodyDiv">
+    <main role="main" class="container">
+        <div class="container d-flex h-100 position-absolute top-10">
+            <div class="row align-self-center w-100">
+                <div class="col-6 mx-auto">
+                    <div class="jumbotron" style="background-color: rgba(187,246,136,0.79); opacity: 0.95">
+                        <h1 class="display-4 text-truncate">Bookstore</h1>
+                        <p class="lead">All your favorite books in one place.</p>
+                        <p class="lead">
+                            <a class="btn btn-primary btn-lg" th:href="@{/books}" role="button">Browse</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
 
 </body>
 </html>

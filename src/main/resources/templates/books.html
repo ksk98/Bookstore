@@ -1,30 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="pl">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{/js/books.js}" rel="script">
+    <link th:href="@{/css/custom.css}" rel="stylesheet">
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
 <div th:insert="navbar :: navbar">  </div>
 
-<table class="table">
-    <thead class="thead-dark">
-    <tr>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Publisher</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!--/*@thymesVar id="books" type="com.bookstore.Bookstore.models.BookEntity"*/-->
-    <tr th:each="book: ${books}">
-        <td th:text="${book.title}" />
-        <td th:text="${book.author}" />
-        <td th:text="${book.publisher}" />
-    </tr>
-    </tbody>
-</table>
-
+<div class="bodyDiv">
+    <main role="main" class="container">
+        <div class="container d-flex h-100 position-absolute top-10">
+            <div class="row align-self-center w-100">
+                <table class="table">
+                    <thead style="background-color: rgb(122,171,83)">
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Publisher</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody style="background-color: rgba(187,246,136,0.79)">
+                    <!--/*@thymesVar id="books" type="com.bookstore.Bookstore.models.BookEntity"*/-->
+                    <tr th:each="book: ${books}" style="border-top: 1pt solid #464646">
+                        <script th:inline="javascript">
+                            const uid = [[${userid}]];
+                            const bid = [[${book.id}]];
+                        </script>
+                        <td th:text="${book.title}" />
+                        <td th:text="${book.author}" />
+                        <td th:text="${book.publisher}" />
+                        <td> <button onclick="addToCart(uid, bid)">Add to cart</button> </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
 </body>
 </html>

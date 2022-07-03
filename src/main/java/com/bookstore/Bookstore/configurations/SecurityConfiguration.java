@@ -68,12 +68,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(format("%s/**", swaggerPath)).permitAll()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/css/**").permitAll()
-                .antMatchers("**/favicon.ico").permitAll()
+                .antMatchers("/media/**").permitAll()
+                .antMatchers("favicon.ico").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/perform_login")
+                .defaultSuccessUrl("/", true)
+                .failureUrl("/login?error=true")
+                .and()
+                .logout()
+                .logoutUrl("/perform_logout")
+                .deleteCookies("JSESSIONID");
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
     }
 }

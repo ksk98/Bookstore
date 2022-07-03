@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "secret",
+      "type": "java.lang.String",
+      "description": "Description for secret."
+    },
+    {
+      "name": "spring.thymeleaf.static-locations.period",
+      "type": "java.lang.String",
+      "description": "Description for spring.thymeleaf.static-locations.period."
+    }
+  ] }

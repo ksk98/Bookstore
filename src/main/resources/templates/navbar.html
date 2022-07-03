@@ -16,7 +16,7 @@
         <ul class="nav navbar-nav">
             <li><a class="nav-link" th:href="@{/books}">Books</a></li>
 
-            <li><a class="nav-link" th:href="@{/cart}">Cart</a></li>
+            <li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/cart}">Cart</a></li>
 
             <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link" th:href="@{/stock}">Stock</a></li>
 
