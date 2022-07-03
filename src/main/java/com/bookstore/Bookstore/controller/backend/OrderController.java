@@ -1,4 +1,4 @@
-package com.bookstore.Bookstore.controller;
+package com.bookstore.Bookstore.controller.backend;
 
 import com.bookstore.Bookstore.model.Order;
 import com.bookstore.Bookstore.repositories.UserRepository;
@@ -14,7 +14,7 @@ import com.bookstore.Bookstore.api.OrdersApi;
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/")
-public class OrderController extends BaseController implements OrdersApi {
+public class OrderController extends BaseBackendController implements OrdersApi {
     private final OrderService orderService;
     private final UserRepository userRepository;
 

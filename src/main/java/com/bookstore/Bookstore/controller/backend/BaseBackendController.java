@@ -1,4 +1,4 @@
-package com.bookstore.Bookstore.controller;
+package com.bookstore.Bookstore.controller.backend;
 
 import com.bookstore.Bookstore.models.RoleEntity;
 import com.bookstore.Bookstore.models.UserEntity;
@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.server.ResponseStatusException;
 
-public abstract class BaseController {
+public abstract class BaseBackendController {
     protected void verifyUserForAdminOrOwnerOrThrowUnauthorized(Integer targetUserId, UserRepository userRepository) {
         UserEntity caller = userRepository.findByUsername(
                 ((org.springframework.security.core.userdetails.User) SecurityContextHolder

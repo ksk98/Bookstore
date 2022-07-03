@@ -1,4 +1,4 @@
-package com.bookstore.Bookstore.controller;
+package com.bookstore.Bookstore.controller.backend;
 
 import com.bookstore.Bookstore.model.Book;
 import com.bookstore.Bookstore.repositories.UserRepository;
@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/")
-public class CartController extends BaseController implements CartsApi {
+public class CartController extends BaseBackendController implements CartsApi {
     private final CartService cartService;
     private final UserRepository userRepository;
 

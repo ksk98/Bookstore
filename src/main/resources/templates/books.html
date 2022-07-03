@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div th:insert="navbar :: navbar">  </div>
+
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Publisher</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--/*@thymesVar id="books" type="com.bookstore.Bookstore.models.BookEntity"*/-->
+    <tr th:each="book: ${books}">
+        <td th:text="${book.title}" />
+        <td th:text="${book.author}" />
+        <td th:text="${book.publisher}" />
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
